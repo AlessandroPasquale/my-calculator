@@ -2,33 +2,85 @@ package it.unisa.diem.se.demo;
 
 public class DataModel {
 
-    private String firstNumber = "";
-    private String secondNumber = "";
-    private String operator;
+    private StringBuffer firstNumber;
+    private StringBuffer secondNumber;
+    private StringBuffer operator;
+
+    public DataModel() {
+        this.firstNumber = new StringBuffer();
+        this.secondNumber = new StringBuffer();
+        this.operator = new StringBuffer();
+    }
+
     public void addNumber(int number)
     {
-        if(operator.isEmpty()) {
-            firstNumber += number;
+        if(isOperatorSet()) {
+            firstNumber.append(number);
         }
-        else{
-            secondNumber += number;
+        else {
+            secondNumber.append(number);
         }
     }
 
     public void resetNumber()
     {
-        firstNumber = "";
+        firstNumber.delete(0, firstNumber.length());
     }
 
     public String getFirstNumber() {
-        return firstNumber;
+        return firstNumber.toString();
     }
 
     public String getOperator() {
-        return operator;
+        return operator.toString();
     }
 
     public void setOperator(String operator) {
-        this.operator = operator;
+        this.operator.append(operator);
+    }
+
+    public double calculate(){
+        Double result = 0.0;
+        int operand1 = Integer.parseInt(firstNumber.toString());
+        int operand2 = Integer.parseInt(secondNumber.toString());
+
+        switch(operator.toString()){
+            case "+":
+                result = (double) (operand1 + operand2);
+                break;
+
+            case "-":
+                result = (double) (operand1 - operand2);
+                break;
+
+            case "*":
+                result = (double) (operand1 * operand2);
+                break;
+
+            case "/":
+                result = (double) operand1 / operand2;
+                break;
+
+            default:
+                break;
+
+        }
+
+        operator.delete(0, operator.length());
+
+        Integer resInt = result.intValue();
+
+        firstNumber.replace(0, firstNumber.length(), resInt.toString());
+        secondNumber.delete(0, secondNumber.length());
+
+        return result;
+    }
+
+    public boolean isOperatorSet(){
+        return this.operator.isEmpty();
+    }
+
+    public String getSecondNumber() {
+        return secondNumber.toString();
     }
 }

@@ -12,7 +12,9 @@ public class HelloController {
     private TextField textField;
 
     private void updateTexfield() {
-        textField.setText(model.getFirstNumber());
+        if(model.isOperatorSet())
+            textField.setText(model.getFirstNumber());
+        else textField.setText(model.getSecondNumber());
     }
 
     private void resetTextfield() {
@@ -81,12 +83,13 @@ public class HelloController {
 
     @FXML
     void calculateAction(ActionEvent event) {
-
+        Double result = model.calculate();
+        textField.setText(result.toString());
     }
 
     @FXML
     void cancelAction(ActionEvent event) {
-        resetTextfield();
+        textField.setText("");
         model.resetNumber();
     }
 
