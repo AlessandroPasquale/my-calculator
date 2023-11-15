@@ -92,22 +92,22 @@ public class HelloController {
 
     @FXML
     void divideAction(ActionEvent event) {
-
+        model.setOperator("/");
     }
 
     @FXML
     void multAction(ActionEvent event) {
-
+        model.setOperator("*");
     }
 
     @FXML
     void subAction(ActionEvent event) {
-
+        model.setOperator("-");
     }
 
     @FXML
     void sumAction(ActionEvent event) {
-
+        model.setOperator("+");
     }
 
 }
